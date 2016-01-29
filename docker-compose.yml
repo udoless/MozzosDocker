@@ -1,0 +1,41 @@
+nginx:
+    build: ./nginx/
+    ports:
+        - 8080:80
+    links:
+        - php
+    volumes_from:
+        - app
+
+php:
+    build: ./php/
+    expose:
+        - 9000
+    links:
+        - mysql
+    volumes_from:
+        - app
+
+app:
+    image: php:7.0-fpm
+    volumes:
+        - /var/www/html:/var/www/html
+    command: "true"
+
+mysql:
+    image: mysql:latest
+    volumes_from:
+        - data
+    ports:
+        - 3306:3306
+    environment:
+        MYSQL_ROOT_PASSWORD: mozzos_password
+        MYSQL_DATABASE: mozzos_club
+        MYSQL_USER: mozzos_club
+        MYSQL_PASSWORD: mozzos_club_password
+
+data:
+    image: mysql:latest
+    volumes:
+        - /var/lib/mysql
+    command: "true"
