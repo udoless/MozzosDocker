@@ -8,6 +8,6 @@ RUN apt-get install -y \
         libmcrypt-dev \
         libpng12-dev 
 
-RUN docker-php-ext-install opcache pdo_mysql mbstring gd \
-&& docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+&& docker-php-ext-install opcache pdo_mysql mbstring gd
 COPY ./www.conf /usr/local/etc/php-fpm.d/www.conf
