@@ -13,29 +13,43 @@ php:
         - 9000
     links:
         - mysql
+        - redis
     volumes_from:
         - app
 
 app:
     image: php:7.0-fpm
     volumes:
-        - /var/www/html:/var/www/html
+        - /Users/leo/PhpstormProjects:/var/www/html
     command: "true"
 
 mysql:
     image: mysql:latest
     volumes_from:
-        - data
+        - mysql_data
     ports:
         - 3306:3306
     environment:
         MYSQL_ROOT_PASSWORD: mozzos_password
-        MYSQL_DATABASE: mozzos_club
-        MYSQL_USER: mozzos_club
-        MYSQL_PASSWORD: mozzos_club_password
+        MYSQL_DATABASE: mozzos
+        MYSQL_USER: mozzos
+        MYSQL_PASSWORD: mozzos_password
 
-data:
+mysql_data:
     image: mysql:latest
     volumes:
         - /var/lib/mysql
+    command: "true"
+
+redis:
+    image: redis:3-alpine
+    volumes_from:
+        - redis_data
+    ports:
+        - 6379:6379
+
+redis_data:
+    image: redis:3-alpine
+    volumes:
+        - /var/lib/redis
     command: "true"
