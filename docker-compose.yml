@@ -16,11 +16,10 @@ php:
         - redis
     volumes_from:
         - app
-
 app:
     image: php:7.0-fpm
     volumes:
-        - /Users/leo/PhpstormProjects:/var/www/html
+        - /var/www/html:/var/www/html
     command: "true"
 
 mysql:

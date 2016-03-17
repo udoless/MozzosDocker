@@ -11,3 +11,4 @@ RUN apt-get install -y \
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
 && docker-php-ext-install opcache pdo_mysql mbstring gd
 COPY ./www.conf /usr/local/etc/php-fpm.d/www.conf
+RUN echo "opcache.revalidate_freq=30" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
